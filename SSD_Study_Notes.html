@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSD Study Notes – All Weeks</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #2a2f3f;
+    --accent1: #4f8ef7;
+    --accent2: #e05a7a;
+    --accent3: #50d9a0;
+    --accent4: #f4a942;
+    --text: #dde3f5;
+    --muted: #7a85a3;
+    --tag-bg: rgba(79,142,247,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0d1220 0%, #111827 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(79,142,247,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--accent1);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+  }
+  header h1 span { color: var(--accent1); }
+  header p {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 300;
+  }
+  .badge-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .08em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .badge.b1 { color: var(--accent1); border-color: rgba(79,142,247,.35); background: rgba(79,142,247,.08); }
+  .badge.b2 { color: var(--accent2); border-color: rgba(224,90,122,.35); background: rgba(224,90,122,.08); }
+  .badge.b3 { color: var(--accent3); border-color: rgba(80,217,160,.35); background: rgba(80,217,160,.08); }
+  .badge.b4 { color: var(--accent4); border-color: rgba(244,169,66,.35); background: rgba(244,169,66,.08); }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    display: grid;
+    gap: 24px;
+  }
+
+  /* ── SECTION CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .c1 .card-icon { background: rgba(79,142,247,.15); }
+  .c2 .card-icon { background: rgba(224,90,122,.15); }
+  .c3 .card-icon { background: rgba(80,217,160,.15); }
+  .c4 .card-icon { background: rgba(244,169,66,.15); }
+  .c5 .card-icon { background: rgba(160,100,240,.15); }
+
+  .card-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card-header .chip {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .card-body { padding: 18px 20px; }
+
+  /* ── POINT LIST ── */
+  .point-list { display: grid; gap: 10px; }
+  .point {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: start;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .point-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .c1 .point-dot { background: var(--accent1); }
+  .c2 .point-dot { background: var(--accent2); }
+  .c3 .point-dot { background: var(--accent3); }
+  .c4 .point-dot { background: var(--accent4); }
+  .c5 .point-dot { background: #a064f0; }
+
+  .point strong {
+    display: block;
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+  }
+  .point span {
+    display: block;
+    color: var(--muted);
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  /* ── COMPARE TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .compare-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--accent1);
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+  .compare-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+  .compare-table td:first-child {
+    font-weight: 500;
+    color: var(--accent3);
+    white-space: nowrap;
+  }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    background: rgba(79,142,247,.1);
+    color: var(--accent1);
+    border: 1px solid rgba(79,142,247,.2);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 12.5px;
+    border-left: 3px solid;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert.danger { background: rgba(224,90,122,.08); border-color: var(--accent2); color: #f4b0c0; }
+  .alert.success { background: rgba(80,217,160,.08); border-color: var(--accent3); color: #9eecd4; }
+  .alert.info { background: rgba(79,142,247,.08); border-color: var(--accent1); color: #a8c4f8; }
+  .alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── GRID 2-COL ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:580px){ .grid2 { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .mini-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .mini-card ul {
+    list-style: none;
+    display: grid;
+    gap: 5px;
+  }
+  .mini-card ul li {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .mini-card ul li::before {
+    content: '›';
+    color: var(--accent3);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">IKB 21503 · Secure Software Development</div>
+  <h1>All Weeks <span>Quick Study Notes</span></h1>
+  <p>Covers: W1 Introduction · W2 Supply Chain + Design Principles · W3 Architecture + Coding Vulnerabilities</p>
+  <div class="badge-row">
+    <span class="badge b1">Defense in Depth</span>
+    <span class="badge b2">Supply Chain</span>
+    <span class="badge b3">Design Principles</span>
+    <span class="badge b4">Multi-Tier Architecture</span>
+    <span class="badge b1">Race Conditions</span>
+    <span class="badge b2">Serialization</span>
+    <span class="badge b3">Timing Attacks</span>
+    <span class="badge b4">Input Handling</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══ WEEK DIVIDER W1 ══ -->
+  <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+    <span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent1);white-space:nowrap;">WEEK 1 — INTRODUCTION TO SECURE SOFTWARE DEVELOPMENT</span>
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+  </div>
+
+  <!-- ══ W1 TOPIC 1 ══ -->
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-icon">🛡️</div>
+      <h2>Defense in Depth (DiD)</h2>
+      <span class="chip">Week 1</span>
+    </div>
+    <div class="card-body">
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>What is DiD?</strong>
+            <span>A security strategy using multiple, overlapping layers of defense. If one layer fails, others are still in place — prevents a single point of failure. Encompasses physical, technical, and administrative controls (like a castle's layered defenses).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>DiD Layers (outer → inner)</strong>
+            <span><b>Policies/Procedures/Awareness</b> → <b>Physical</b> (fences, locks, guards) → <b>Perimeter</b> (firewalls, NAT, DoS prevention) → <b>Internal Network</b> (encryption, VPN) → <b>Host</b> (OS patches, antimalware) → <b>Application</b> (AAA, SSO, coding practices) → <b>Data</b> (DB security, content security, message-level security)</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>4 Key Principles of DiD</strong>
+            <span>Layered Security · Redundancy · No Single Point of Failure · Holistic Protection (people, technology, operations)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ W1 TOPIC 2 ══ -->
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-icon">⚠️</div>
+      <h2>Common Problems &amp; Vulnerabilities in Software Dev</h2>
+      <span class="chip">Week 1</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini-card">
+          <h4 style="color:var(--accent3)">Current Problems</h4>
+          <ul>
+            <li>Lack of secure coding awareness among devs</li>
+            <li>Overreliance on frameworks without validation</li>
+            <li>Incomplete threat modeling / risk analysis</li>
+            <li>Inadequate input validation &amp; sanitization</li>
+            <li>Use of outdated / unpatched third-party libs</li>
+            <li>Poor error handling and exception management</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--accent2)">Vulnerabilities Introduced in Practice</h4>
+          <ul>
+            <li>Hardcoded credentials or API keys</li>
+            <li>Weak session &amp; authentication logic</li>
+            <li>Improper security headers / access control config</li>
+            <li>Failure to validate inputs → SQLi, XSS</li>
+            <li>Insecure open-source dependencies</li>
+            <li>Misconfigured cloud services &amp; containers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert danger" style="margin-top:14px;">
+        <span class="alert-icon">⚠️</span>
+        <span><b>Impact of poor implementation:</b> Increases attack surface, causes data leaks, cascading failures in microservices, financial/reputational damage, and expensive patches.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ W1 TOPIC 3 ══ -->
+  <div class="card c4">
+    <div class="card-header">
+      <div class="card-icon">📋</div>
+      <h2>SDLC &amp; NIST SSDF Framework</h2>
+      <span class="chip">Week 1</span>
+    </div>
+    <div class="card-body">
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>SDLC Phases</strong>
+            <span>Planning → Engineering → Documentation → Design → Development → Testing → Deployment → Maintenance</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>NIST SSDF (SP 800-218)</strong>
+            <span>Secure Software Development Framework — integrates security into every SDLC stage. Cycle: <b>Plan → Develop → Build → Test → Release → Deploy → Operate</b>. Drawn from 150+ resources including OWASP, SAMM, BSIMM, ASVS.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Best Practices for Secure Implementation</strong>
+            <span>Apply 'Secure by Design' early · Follow OWASP guidelines · Regular code reviews &amp; automated scans · Use least privilege + DiD · Secure configs &amp; continuous testing · Train developers in secure coding.</span>
+          </div>
+        </div>
+      </div>
+      <div class="alert info">
+        <span class="alert-icon">💡</span>
+        <span><b>Summary mantra:</b> Secure implementation bridges the gap between secure design and deployment. Ignoring it creates hidden vulnerabilities that expand attack surfaces.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ WEEK DIVIDER W2 ══ -->
+  <div style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+    <span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent3);white-space:nowrap;">WEEK 2 — SUPPLY CHAIN SECURITY + DESIGN PRINCIPLES</span>
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+  </div>
+
+  <!-- ══ W2 TOPIC 1 ══ -->
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-icon">🔗</div>
+      <h2>Software Supply Chain &amp; Integrity Attacks</h2>
+      <span class="chip">Week 2</span>
+    </div>
+    <div class="card-body">
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>What is a Software Supply Chain?</strong>
+            <span>All components involved in building software: source code, third-party libraries, package repositories, build tools, and CI/CD pipelines. Each dependency introduces potential risk.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Supply Chain Attack</strong>
+            <span>Attackers compromise software <em>before</em> it reaches users by inserting malicious code into trusted components (repositories, updates, or build systems).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Common Attack Techniques</strong>
+            <span>Compromised package repositories · Malicious open-source libraries · <b>Dependency Confusion</b> (attacker uploads malicious package with same name — package manager installs attacker version) · Compromised build pipelines</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Case Study: SolarWinds (2020)</strong>
+            <span>Attackers infiltrated the SolarWinds build system, inserted malicious code into Orion software updates, and thousands of organizations downloaded the compromised update.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Why Hard to Detect?</strong>
+            <span>High trust in software updates · Automated dependency installation · Large attack surface · Modifications are subtle and hidden in trusted code.</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <table class="compare-table">
+          <thead><tr><th>Control</th><th>What It Does</th></tr></thead>
+          <tbody>
+            <tr><td>Verify package authenticity</td><td>Confirm packages come from a trusted, unmodified source</td></tr>
+            <tr><td>Digital signatures</td><td>Cryptographically prove code hasn't been tampered with</td></tr>
+            <tr><td>Dependency scanning</td><td>Automatically detect known vulnerabilities in libraries</td></tr>
+            <tr><td>Protect CI/CD pipelines</td><td>Prevent injection of malicious code during build process</td></tr>
+            <tr><td>Least privilege in builds</td><td>Limit what the build environment can access/modify</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ W2 TOPIC 2 ══ -->
+  <div class="card c5">
+    <div class="card-header">
+      <div class="card-icon">🧩</div>
+      <h2>Secure Software Design Principles</h2>
+      <span class="chip">Week 2–3</span>
+    </div>
+    <div class="card-body">
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Input Validation &amp; Canonicalization</strong>
+            <span>Always <b>Canonicalize first</b> (normalize/decode input into standard form), <b>then Validate</b>. Use <b>allowlists</b> over denylists. Apply contextual checks: length, type, range. Validate after decoding to catch encoded attacks like <code>%2e%2e/</code> (= <code>../../</code>).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Canonicalization 3-Step Process</strong>
+            <span><b>1. Canonicalize</b> — decode/resolve (e.g., <code>%2e%2e</code> → <code>..</code> via <code>unquote()</code> / <code>os.path.realpath()</code>). <b>2. Validate</b> — apply allowlist/pattern checks. <b>3. Process</b> — use the safe, validated data.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Use Well-Tested Libraries</strong>
+            <span>Never write custom crypto or parsers. Crypto: use <code>OpenSSL</code>, <code>libsodium</code>, <code>bcrypt</code> — avoid SHA1. Parsing: use <code>yaml.safe_load</code>, JSON schema validation. Auth: use OAuth2/JWT via mature libraries.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Principle of Least Privilege (PoLP)</strong>
+            <span>Give every process only the permissions it needs. OS: run as non-root. DB: limited roles (read-only vs write). Cloud: least-privileged IAM roles. Run risky operations in sandboxed environments. Compartmentalize microservices with scoped tokens.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Logging &amp; Alerting</strong>
+            <span>Log security events and anomalies. Detect deserialization errors, timing probes, oversized payloads. Protect logs — mask PII/secrets, use centralized logging (ELK, SIEM). Key rule: <em>if it's not logged, it didn't happen; if logged but never reviewed, it's useless.</em></span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Secure Defaults — Fail Closed / Deny by Default</strong>
+            <span>Systems must start in a secure state. Failures deny access, not allow it. Avoid: open ports, default passwords, 'allow all' rules. Do: deny until explicitly granted, disable debug leaks in production, redirect HTTP→HTTPS, reject invalid input by default.</span>
+          </div>
+        </div>
+      </div>
+      <div class="alert success">
+        <span class="alert-icon">✅</span>
+        <span><b>Design lesson summary:</b> Validate → Restrict → Monitor → Deny. Apply OWASP &amp; SSDF principles throughout.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ WEEK DIVIDER W3 ══ -->
+  <div style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+    <span style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent4);white-space:nowrap;">WEEK 3 — SECURE ARCHITECTURE + CODING VULNERABILITIES</span>
+    <div style="flex:1;height:1px;background:var(--border);"></div>
+  </div>
+
+  <!-- ══ TOPIC 1 ══ -->
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-icon">🏗️</div>
+      <h2>Multi-Tier Architecture</h2>
+      <span class="chip">Lecture 1</span>
+    </div>
+    <div class="card-body">
+
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Layer vs Tier — KEY DISTINCTION</strong>
+            <span><b>Layer</b> = logical separation of code (same machine). <b>Tier</b> = physical separation across different machines/servers.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Three Common Tiers</strong>
+            <span><b>Presentation Tier</b> – User interface (browser/app). | <b>Application/Logic Tier</b> – Business logic, processes requests. | <b>Data Tier</b> – Database storage and retrieval.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Benefits of Multi-Tier</strong>
+            <span>Independent scalability · Enhanced flexibility · Better maintainability · Increased security (data tier isolated from presentation tier).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Data Transfer Protocols</strong>
+            <span>Presentation→App: <code>HTTP/HTTPS</code>, RESTful APIs. App→DB: <code>JDBC</code>/<code>ODBC</code> over TCP/IP. Between tiers: CORBA, Java RMI, .NET Remoting, sockets.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Data Transfer Objects (DTOs) & Serialization</strong>
+            <span>DTOs carry data between tiers minimizing remote calls. Serialization formats: <code>JSON</code> (lightweight, web APIs) and <code>XML</code> (structured data).</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Aspect</th><th>Layers</th><th>Tiers</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Concept</td><td>Logical separation by function</td><td>Physical separation across machines</td></tr>
+            <tr><td>Location</td><td>Same process/machine</td><td>Separate servers/networks</td></tr>
+            <tr><td>Benefit</td><td>Better code organisation</td><td>Independent scalability</td></tr>
+            <tr><td>Relationship</td><td>Multiple layers in one tier</td><td>Tier hosts one or more layers</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 2 ══ -->
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-icon">🔒</div>
+      <h2>Security Issues by Layer &amp; Secure Delivery</h2>
+      <span class="chip">Lecture 1</span>
+    </div>
+    <div class="card-body">
+
+      <div class="grid2">
+        <div class="mini-card">
+          <h4 style="color:var(--accent2)">Security Issues Per Layer</h4>
+          <ul>
+            <li>Hardware → Physical protection</li>
+            <li>Process → Secure operations</li>
+            <li>Software Bus → Secure messaging</li>
+            <li>Network → Encrypted communication</li>
+            <li>Configuration → Hardening &amp; patching</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--accent2)">Secure Delivery Mechanism</h4>
+          <ul>
+            <li>Integrate security from the start (not an afterthought)</li>
+            <li>Implement secure coding practices</li>
+            <li>Software Composition Analysis (SCA)</li>
+            <li>Regular vulnerability scanning</li>
+            <li>Manage secrets (keys, passwords) securely</li>
+            <li>Automate security in CI/CD pipeline</li>
+            <li>Enforce quality gates</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert info" style="margin-top:14px;">
+        <span class="alert-icon">💡</span>
+        <span><b>Remember the 4 pillars from summary slide:</b> Secure Design · Secure Architecture · Secure Implementation · Secure Delivery</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 3 ══ -->
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-icon">⚛️</div>
+      <h2>Atomicity &amp; Race Conditions</h2>
+      <span class="chip">Lecture 2</span>
+    </div>
+    <div class="card-body">
+
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Atomicity</strong>
+            <span>An operation that is indivisible — either completes entirely or not at all. Classic example: bank transfer (debit AND credit must both happen).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Race Condition</strong>
+            <span>Multiple threads access shared data simultaneously; result depends on execution timing → data corruption or security bugs. Example: two threads reading same counter before either updates it.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>TOCTOU (Time-of-Check to Time-of-Use)</strong>
+            <span>App checks a resource's state, then an attacker changes it before the app uses it. Intersection of race conditions and security. Fix: make Check+Use atomic using locks or transactions.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Mitigations</strong>
+            <span>Use <b>mutexes, semaphores, monitors</b> for synchronisation. Use <b>ACID transactions</b> in databases. Use thread-safe data structures. Avoid shared mutable state. Use Static &amp; Dynamic Analysis Tools.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 4 ══ -->
+  <div class="card c4">
+    <div class="card-header">
+      <div class="card-icon">📦</div>
+      <h2>Serialization / Deserialization Vulnerabilities</h2>
+      <span class="chip">Lecture 2</span>
+    </div>
+    <div class="card-body">
+
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>What is it?</strong>
+            <span><b>Serialization</b> = converting object → byte stream/JSON/XML (safe). <b>Deserialization</b> = reconstructing object from that data (dangerous if input is untrusted).</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Impact</strong>
+            <span>Most severe: <b>Remote Code Execution (RCE)</b> — attacker executes commands on server. Also: Denial of Service (DoS), data tampering, privilege escalation.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Root Cause</strong>
+            <span>Naively trusting data being deserialized; serialisation libraries invoke object methods during reconstruction which can be exploited.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Mitigations</strong>
+            <span>Use <b>allowlists</b> for permitted classes. Prefer <b>JSON/Protobuf with schema validation</b>. Avoid native deserialization of untrusted data.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert danger">
+        <span class="alert-icon">⚠️</span>
+        <span>Vulnerable pattern: <code>Object obj = in.readObject();</code> — deserializing directly from an untrusted socket stream with no validation.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 5 ══ -->
+  <div class="card c5">
+    <div class="card-header">
+      <div class="card-icon">⏱️</div>
+      <h2>Timing Attacks (Side-Channel)</h2>
+      <span class="chip">Lecture 2</span>
+    </div>
+    <div class="card-body">
+
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>What is it?</strong>
+            <span>Attacker infers sensitive data (passwords, crypto keys) by measuring how long a system takes to respond to different inputs. Different operations take slightly different amounts of time — if that difference is data-dependent, secrets leak.</span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Side-Channel</strong>
+            <span>An unintended physical/logical path leaking info: timing, power consumption, electromagnetic radiation, or even sound.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Strategy</th><th>How it helps</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Constant-Time Algorithms</td><td>Execution time independent of secret value (e.g., <code>hmac.compare_digest</code>)</td></tr>
+            <tr><td>Timing Jitter</td><td>Add small random delay to obscure true timing signal</td></tr>
+            <tr><td>Response Grouping</td><td>Report times in buckets (e.g., 0–10ms) to reduce precision</td></tr>
+            <tr><td>Hardware/OS Isolation</td><td>Memory isolation, Intel SGX for cloud environments</td></tr>
+            <tr><td>Standard Library Usage</td><td>Use validated crypto libs with constant-time implementations built in</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert danger" style="margin-top:14px;">
+        <span class="alert-icon">⚠️</span>
+        <span>Vulnerable pattern: <code>if user_input == secret_token:</code> — direct string comparison exits early on mismatch, leaking timing info.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 6 ══ -->
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-icon">📏</div>
+      <h2>Fixed vs Dynamic Input Length Handling</h2>
+      <span class="chip">Lecture 2</span>
+    </div>
+    <div class="card-body">
+
+      <div class="point-list">
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>The Risk</strong>
+            <span>Fixed-length buffers → <b>buffer overflow</b>. Dynamic/unbounded inputs → <b>Denial of Service (DoS)</b>. Classic vulnerable code: <code>char buf[256]; gets(buf);</code></span>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-dot"></div>
+          <div>
+            <strong>Mitigations</strong>
+            <span>Use safe functions: <code>fgets</code>, <code>snprintf</code>. Always validate input length before processing. Enforce size limits on file uploads. Apply <b>fuzz testing</b> and <b>boundary testing</b>.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ TOPIC 7 — CHECKLISTS ══ -->
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-icon">✅</div>
+      <h2>Developer &amp; Tester Checklists</h2>
+      <span class="chip">Lecture 2</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini-card">
+          <h4 style="color:var(--accent3)">👩‍💻 Developer Checklist</h4>
+          <ul>
+            <li>Use DB transactions and atomic updates</li>
+            <li>Avoid unsafe deserialization of untrusted data</li>
+            <li>Use constant-time operations for comparisons</li>
+            <li>Validate and limit input sizes</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <h4 style="color:var(--accent4)">🧪 Tester Checklist</h4>
+          <ul>
+            <li>Concurrency stress tests</li>
+            <li>Fuzz deserialization inputs</li>
+            <li>Boundary and timing tests</li>
+            <li>Static code scan for risky APIs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert success">
+        <span class="alert-icon">✅</span>
+        <span><b>Key mantra:</b> Always validate input, synchronise shared data, and use secure libraries. Apply <b>OWASP</b> and <b>SSDF</b> best practices in design &amp; implementation.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUICK DEFINITIONS ══ -->
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-icon">📖</div>
+      <h2>Quick-Fire Definitions to Memorise</h2>
+      <span class="chip">Both Lectures</span>
+    </div>
+    <div class="card-body">
+      <div class="point-list">
+        <div class="point"><div class="point-dot"></div><div><strong>Atomicity</strong><span>Indivisible operation — all or nothing.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>Race Condition</strong><span>Result depends on unpredictable thread timing on shared data.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>TOCTOU</strong><span>Check and Use of a resource are not atomic — attacker intervenes between them.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>Insecure Deserialization</strong><span>Untrusted data reconstructed into objects without validation → RCE risk.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>Timing Attack</strong><span>Side-channel attack inferring secrets from response time differences.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>Buffer Overflow</strong><span>Writing past a fixed buffer's end — caused by lack of input length validation.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>SCA</strong><span>Software Composition Analysis — automated inspection of code for vulnerabilities and license issues.</span></div></div>
+        <div class="point"><div class="point-dot"></div><div><strong>DTO</strong><span>Data Transfer Object — simple serialisable object for passing data between tiers efficiently.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>IKB 21503 · Secure Software Development · All Weeks Study Notes · Good luck on your test! 🎯</footer>
+
+</body>
+</html>
