@@ -1,1 +1,1 @@
-WEBSITE URL: https://ash9lumen.github.io/SSD_Study_Notes/
+Website URL: https://ash9lumen.github.io/SSD_Study_Notes/
